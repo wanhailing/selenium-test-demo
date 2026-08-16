@@ -1,0 +1,15 @@
+# 虚拟环境（几百MB，不能传）
+.venv/
+
+# PyCharm 配置
+.idea/
+
+# Python 编译缓存
+__pycache__/
+*.pyc
+
+# pytest 缓存
+.pytest_cache/
+
+# 临时报告文件
+report.html
