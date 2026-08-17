@@ -13,3 +13,4 @@ __pycache__/
 
 # 临时报告文件
 report.html
+pytest_output*.txt
