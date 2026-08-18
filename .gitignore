@@ -11,6 +11,8 @@ __pycache__/
 # pytest 缓存
 .pytest_cache/
 
-# 临时报告文件
+# 临时报告/日志文件
 report.html
 pytest_output*.txt
+pytest_debug*.txt
+pytest_final*.txt
