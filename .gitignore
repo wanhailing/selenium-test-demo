@@ -16,3 +16,6 @@ report.html
 pytest_output*.txt
 pytest_debug*.txt
 pytest_final*.txt
+
+# pytest-html 自动生成的报告样式（每次跑测试都会重新生成，无需提交）
+assets/
