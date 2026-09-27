@@ -5,6 +5,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 import pytest
 
 
+def element_text(el):
+    """取元素文本内容。
+
+    注意：Selenium 的 .text 只返回"视觉可见"的文本，而必应搜索结果元素常被判为
+    不可见（CSS 布局原因），导致 .text 返回空字符串。所以这里退化为读取
+    textContent —— 它不依赖可见性判断，拿到的文本更可靠。
+    """
+    return (el.text or el.get_attribute("textContent") or "").strip()
+
+
 def search_bing(driver, keyword):
     """打开必应并搜索，返回搜索结果列表"""
     driver.get("https://cn.bing.com")
@@ -23,9 +33,9 @@ def test_bing_search(driver, keyword):
     results = search_bing(driver, keyword)
     assert len(results) > 0, "没有搜索到结果"
     assert keyword in driver.title, f"页面标题未包含关键词: {keyword}"
-    # 更实的断言：首条结果有可见标题文本和链接
+    # 更实的断言：首条结果有标题文本和链接
     first = results[0]
-    assert first.text.strip(), "首条结果标题为空"
+    assert element_text(first), "首条结果标题为空"
     assert first.find_elements(By.TAG_NAME, "a"), "首条结果没有链接"
 
 
@@ -33,4 +43,4 @@ def test_bing_search_has_results(driver):
     """用例4：搜索后验证搜索结果列表非空且首条有效"""
     results = search_bing(driver, "软件测试")
     assert len(results) > 0
-    assert results[0].text.strip(), "首条结果标题为空"
+    assert element_text(results[0]), "首条结果标题为空"
